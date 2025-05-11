@@ -3,20 +3,20 @@ name: 🚀 Deploy Website to SmarterASP.NET via FTP
 on:
   push:
     branches:
-      - main  # Change if your deployment branch is different
+      - main
 
 jobs:
   ftp-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name:  Checkout source code
+      - name: Checkout source code
         uses: actions/checkout@v3
 
-      - name:  Set up Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # or your required Node.js version
+          node-version: '18'
 
       - name: 🛠 Install dependencies
         run: npm install
@@ -27,8 +27,8 @@ jobs:
       - name: 📤 Deploy to SmarterASP.NET via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4
         with:
-          server: win8130.site4now.net
-          username: arochabrace-001
-          password: Year@2025
-          server-dir: /eyoweb
-          local-dir: ./build  # Ensure this matches your build output folder
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_TARGET_DIR }}
+          local-dir: ./build
